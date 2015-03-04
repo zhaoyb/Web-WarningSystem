@@ -8,7 +8,7 @@ using dto;
 
 namespace api.Controllers
 {
-    public class UpLoadErrorController : ApiController
+    public class ErrorController : ApiController
     {
         public void Post([FromBody]ExceptionMessage exceptionMessage)
         {
