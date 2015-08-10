@@ -1,6 +1,6 @@
 ﻿namespace notifyservice
 {
-    partial class Notify
+    partial class HandleService
     {
         /// <summary> 
         /// 必需的设计器变量。

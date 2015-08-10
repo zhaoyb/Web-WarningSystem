@@ -17,7 +17,7 @@ namespace notifyservice
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new Notify() 
+                new HandleService() 
             };
             ServiceBase.Run(ServicesToRun);
         }

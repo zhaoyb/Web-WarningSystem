@@ -6,7 +6,7 @@ using System.Text;
 
 namespace warning
 {
-    internal class RequestHelp
+    internal partial class Common
     {
         /// <summary>
         ///     通讯函数  Post

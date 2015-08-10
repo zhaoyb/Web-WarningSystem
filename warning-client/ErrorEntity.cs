@@ -6,7 +6,7 @@ using System.Web;
 
 namespace warning
 {
-    public class ErrorMessage
+    public class ErrorEntity
     {
         public string Id { get; set; }
         public string MachineName { get; set; }
@@ -25,10 +25,10 @@ namespace warning
         public DateTime DateTime { get; set; }
         public string Remark { get; set; }
 
-        public ErrorMessage(Exception exception, HttpContext httpContext)
+        public ErrorEntity(Exception exception, HttpContext httpContext)
         {
             MachineName = Environment.MachineName;
-            Ip = Utility.GetLocalIp();
+            Ip = Common.GetLocalIp();
             ExceptionType = exception.GetType().FullName;
             ExceptionMessage = exception.Message;
             ExceptionSource = exception.Source;
@@ -45,10 +45,10 @@ namespace warning
             {
                 HttpRequest request = httpContext.Request;
                 RequestUrl = request.Url.AbsoluteUri;
-                ServerVariables = Utility.CopyCollection(request.ServerVariables);
-                QueryString = Utility.CopyCollection(request.QueryString);
-                Form = Utility.CopyCollection(request.Form);
-                Cookies = Utility.CopyCollection(request.Cookies);
+                ServerVariables = Common.CopyCollection(request.ServerVariables);
+                QueryString = Common.CopyCollection(request.QueryString);
+                Form = Common.CopyCollection(request.Form);
+                Cookies = Common.CopyCollection(request.Cookies);
             }
         }
       

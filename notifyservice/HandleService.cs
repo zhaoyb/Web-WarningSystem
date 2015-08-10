@@ -13,54 +13,57 @@ using utility;
 
 namespace notifyservice
 {
-    public partial class Notify : ServiceBase
+    public partial class HandleService : ServiceBase
     {
-        public Notify()
+        public HandleService()
         {
             InitializeComponent();
         }
 
         protected override void OnStart(string[] args)
         {
-            Thread notifyThread = new Thread(NotityUser);
+            var notifyThread = new Thread(Handle);
             notifyThread.Start();
             notifyThread.IsBackground = true;
-            LogHelper.Info("notity job start...");
+            LogHelper.Info("handle job start...");
         }
 
-        public void NotityUser()
+        public void Handle()
         {
             while (true)
             {
-                string errorMessageId = RedisHelper.DequeueItemFromList("ErrorMessageQueue");
-                if (errorMessageId != "")
+                string errorEntityId = RedisHelper.DequeueItemFromList("ErrorEntityQueue");
+                if (errorEntityId != "")
                 {
-                    ErrorMessage errorMessage = RedisHelper.Get<ErrorMessage>(errorMessageId);
+                    var errorMessage = RedisHelper.Get<ErrorEntity>(errorEntityId);
+
+                    //1. 信息持久到DB, 方便后续查看，统计
+
+
+                    //2. 异常信息通知到相关责任人
+
                     SendMail(errorMessage);
+
+
+                    //3. 更新DB中的状态
                 }
                 else
                 {
-                    Thread.Sleep(5000); //如果没有取到数据，则休息5s
+                    Thread.Sleep(5000); //如果没有取到数据，则暂停5s
                 }
             }
         }
 
 
-        private void SendMail(ErrorMessage errorMessage)
+        private void SendMail(ErrorEntity errorMessage)
         {
-
-
-
-
-
-
             MailHelper.SendMail("[异常报警]" + errorMessage.Ip, "", "", null, "smtp.sohu.com", "mail.sohu.com",
                    "zhaoyabin");
         }
 
         protected override void OnStop()
         {
-            LogHelper.Info("notity job stop...");
+            LogHelper.Info("handle job stop...");
         }
     }
 }

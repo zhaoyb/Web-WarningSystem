@@ -1,25 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "admin", "admin\admin.csproj", "{AD171A2B-FE24-4DF5-A2BD-71844914C53E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Admin", "admin\WarningSystem.Admin.csproj", "{AD171A2B-FE24-4DF5-A2BD-71844914C53E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api", "api\api.csproj", "{C5A1577E-FFC4-433E-AB27-9D27C6AA65FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Api", "api\WarningSystem.Api.csproj", "{C5A1577E-FFC4-433E-AB27-9D27C6AA65FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "business", "business\business.csproj", "{C6E37943-8A24-4646-AD25-63701D8A5FC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Business", "business\WarningSystem.Business.csproj", "{C6E37943-8A24-4646-AD25-63701D8A5FC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{24777439-5B86-4FFA-B8AB-3FDC0AF0E9B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Model", "model\WarningSystem.Model.csproj", "{24777439-5B86-4FFA-B8AB-3FDC0AF0E9B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "utility", "utility\utility.csproj", "{EC662CD6-F87B-4A21-B711-58C3152F2568}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Utility", "utility\WarningSystem.Utility.csproj", "{EC662CD6-F87B-4A21-B711-58C3152F2568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "notifyservice", "notifyservice\notifyservice.csproj", "{C5E9B158-AF1F-4BBC-92C5-ED8AD7DC0A76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.HandleService", "notifyservice\WarningSystem.HandleService.csproj", "{C5E9B158-AF1F-4BBC-92C5-ED8AD7DC0A76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webcheckservice", "webcheckservice\webcheckservice.csproj", "{FD4B034B-3629-425B-968B-9D06580D7B21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.WebCheckService", "webcheckservice\WarningSystem.WebCheckService.csproj", "{FD4B034B-3629-425B-968B-9D06580D7B21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dto", "dto\dto.csproj", "{8F64DF9D-66D8-44DC-9C22-F8D2C73F4118}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Dto", "dto\WarningSystem.Dto.csproj", "{8F64DF9D-66D8-44DC-9C22-F8D2C73F4118}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "warning-client", "warning-client\warning-client.csproj", "{F09B2C16-1614-4997-8031-3FF3F5A61820}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Warning-client", "warning-client\WarningSystem.Warning-client.csproj", "{F09B2C16-1614-4997-8031-3FF3F5A61820}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

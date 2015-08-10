@@ -3,12 +3,11 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Web;
 
 namespace warning
 {
-    public class Utility
+    internal partial class Common
     {
         internal static NameValueCollection CopyCollection(NameValueCollection collection)
         {
@@ -47,31 +46,7 @@ namespace warning
             return localIp;
         }
 
-        public static void SendError(ErrorMessage errorMessage)
-        {
-            try
-            {
-                Func<string, string, ContentType, int, Encoding, Encoding, string> sendpostFunc =
-                    RequestHelp.SendPostRequest;
-                string jsonstr = ConvertJsonHelp.ToJson(errorMessage);
-                IAsyncResult asyncResult = sendpostFunc.BeginInvoke("http://demo.lottery.com/api/Error", jsonstr, ContentType.Json, 3000,
-                    Encoding.UTF8,
-                    Encoding.UTF8, null, jsonstr);
-
-                string sendResult = sendpostFunc.EndInvoke(asyncResult);
-
-                if (sendResult.ToLower() != "ok")
-                {
-                    Log("错误信息上传失败，返回信息：" + sendResult);
-                }
-            }
-            catch (Exception exception)
-            {
-                Log("错误信息上传失败:" + exception.Message);
-            }
-        }
-
-        private static void Log(string logs)
+        internal static void Log(string logs)
         {
             using (FileStream fsFile = new FileStream(HttpRuntime.AppDomainAppPath + @"\webwarninglog\log.txt", FileMode.Append))
             {

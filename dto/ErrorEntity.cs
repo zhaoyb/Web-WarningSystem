@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 
 namespace dto
 {
-    public class ErrorMessage
+    public class ErrorEntity
     {
         public string Id { get; set; }
         public string MachineName { get; set; }
