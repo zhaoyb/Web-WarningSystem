@@ -40,7 +40,7 @@ namespace notifyservice
                     //1. 信息持久到DB, 方便后续查看，统计
 
 
-                    //2. 异常信息通知到相关责任人
+                    //2. 根据异常信息， 查找对应的责任人 ， 并得到对应的通知类型 
 
                     SendMail(errorMessage);
 

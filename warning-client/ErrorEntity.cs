@@ -9,6 +9,7 @@ namespace warning
     public class ErrorEntity
     {
         public string Id { get; set; }
+        public string WebToekn { get; set; }
         public string MachineName { get; set; }
         public string Ip { get; set; }
         public string ExceptionType { get; set; }
@@ -23,10 +24,11 @@ namespace warning
         public NameValueCollection Form { get; set; }
         public NameValueCollection Cookies { get; set; }
         public DateTime DateTime { get; set; }
-        public string Remark { get; set; }
 
         public ErrorEntity(Exception exception, HttpContext httpContext)
         {
+            Id = Guid.NewGuid().ToString("N");
+
             MachineName = Environment.MachineName;
             Ip = Common.GetLocalIp();
             ExceptionType = exception.GetType().FullName;
