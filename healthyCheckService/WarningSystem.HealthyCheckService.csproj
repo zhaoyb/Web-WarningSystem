@@ -7,8 +7,8 @@
     <ProjectGuid>{FD4B034B-3629-425B-968B-9D06580D7B21}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>webcheckservice</RootNamespace>
-    <AssemblyName>webcheckservice</AssemblyName>
+    <RootNamespace>healthyCheckService</RootNamespace>
+    <AssemblyName>healthyCheckService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebCheck.cs">
+    <Compile Include="HealthyCheckService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WebCheck.Designer.cs">
-      <DependentUpon>WebCheck.cs</DependentUpon>
+    <Compile Include="HealthyCheckService.Designer.cs">
+      <DependentUpon>HealthyCheckService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,9 +58,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

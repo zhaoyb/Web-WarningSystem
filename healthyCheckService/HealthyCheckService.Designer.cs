@@ -1,6 +1,6 @@
 ﻿namespace webcheckservice
 {
-    partial class WebCheck
+    partial class HealthyCheckService
     {
         /// <summary> 
         /// 必需的设计器变量。

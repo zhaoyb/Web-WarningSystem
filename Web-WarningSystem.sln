@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Model", "mode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Utility", "utility\WarningSystem.Utility.csproj", "{EC662CD6-F87B-4A21-B711-58C3152F2568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.HandleService", "notifyservice\WarningSystem.HandleService.csproj", "{C5E9B158-AF1F-4BBC-92C5-ED8AD7DC0A76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.HandleService", "handleService\WarningSystem.HandleService.csproj", "{C5E9B158-AF1F-4BBC-92C5-ED8AD7DC0A76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.WebCheckService", "webcheckservice\WarningSystem.WebCheckService.csproj", "{FD4B034B-3629-425B-968B-9D06580D7B21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.WebCheckService", "healthyCheckService\WarningSystem.HealthyCheckService.csproj", "{FD4B034B-3629-425B-968B-9D06580D7B21}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarningSystem.Dto", "dto\WarningSystem.Dto.csproj", "{8F64DF9D-66D8-44DC-9C22-F8D2C73F4118}"
 EndProject

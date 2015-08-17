@@ -17,7 +17,7 @@ namespace webcheckservice
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new WebCheck() 
+                new HealthyCheckService() 
             };
             ServiceBase.Run(ServicesToRun);
         }

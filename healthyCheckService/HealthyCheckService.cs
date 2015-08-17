@@ -11,21 +11,21 @@ using FluentScheduler;
 
 namespace webcheckservice
 {
-    public partial class WebCheck : ServiceBase
+    public partial class HealthyCheckService : ServiceBase
     {
-        public WebCheck()
+        public HealthyCheckService()
         {
             InitializeComponent();
         }
 
         protected override void OnStart(string[] args)
         {
-            TaskManager.AddTask(Handle, x => x.WithName("WebCheck").NonReentrant().ToRunEvery(2).Seconds());
+            TaskManager.AddTask(Handle, x => x.WithName("HealthyCheckService").NonReentrant().ToRunEvery(2).Seconds());
         }
 
         protected override void OnStop()
         {
-            TaskManager.GetSchedule("WebCheck").Disable();
+            TaskManager.GetSchedule("HealthyCheckService").Disable();
         }
 
         private static void Handle()
