@@ -17,7 +17,7 @@ namespace api.Controllers
         /// </summary>
         /// <param name="errorEntity"></param>
         /// <returns></returns>
-        public string Post([FromBody]ErrorEntity errorEntity)
+        public string Post([FromBody]ErrorEntityDto errorEntity)
         {
             if (errorEntity != null && !string.IsNullOrWhiteSpace(errorEntity.Id))
             {

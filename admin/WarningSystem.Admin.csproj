@@ -7,13 +7,13 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AD171A2B-FE24-4DF5-A2BD-71844914C53E}</ProjectGuid>
+    <ProjectGuid>{D259A10E-E170-484C-9522-280B7418B848}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>admin</RootNamespace>
     <AssemblyName>admin</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -57,39 +57,70 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Web.Razor">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Webpages">
-      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Webpages.Deployment">
-      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Webpages.Razor">
-      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Helpers">
-      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Global.asax" />
+    <Content Include="Controls\HeaderNav.ascx" />
+    <Content Include="WebSite.aspx" />
+    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Static\css\bootstrap-theme.css" />
+    <Content Include="Static\css\bootstrap-theme.min.css" />
+    <Content Include="Static\css\bootstrap.css" />
+    <Content Include="Static\css\bootstrap.min.css" />
+    <Content Include="Static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Static\js\asset\js\esl\css.js" />
+    <Content Include="Static\js\asset\js\esl\echarts.js" />
+    <Content Include="Static\js\asset\js\esl\esl.js" />
+    <Content Include="Static\js\asset\js\esl\js.js" />
+    <Content Include="Static\js\bootstrap-pagy.js" />
+    <Content Include="Static\js\bootstrap.js" />
+    <Content Include="Static\js\bootstrap.min.js" />
+    <Content Include="Static\js\jquery.1.9.1.min.js" />
+    <Content Include="Static\js\jquery.tmpl.js" />
+    <Content Include="Static\My97DatePicker\calendar.js" />
+    <Content Include="Static\My97DatePicker\config.js" />
+    <Content Include="Static\My97DatePicker\lang\en.js" />
+    <Content Include="Static\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Static\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Static\My97DatePicker\My97DatePicker.htm" />
+    <Content Include="Static\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Static\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Static\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Static\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Static\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Static\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Static\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Static\My97DatePicker\WdatePicker.js" />
+    <Content Include="Static\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Static\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Static\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Static\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Static\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Static\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Static\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Static\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Static\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Static\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Static\My97DatePicker\开发包\skin\whyGreen\img.gif" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
+    <Compile Include="Controls\HeaderNav.ascx.cs">
+      <DependentUpon>HeaderNav.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebSite.aspx.cs">
+      <DependentUpon>WebSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebSite.aspx.designer.cs">
+      <DependentUpon>WebSite.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
-    <Content Include="packages.config" />
+    <Content Include="Static\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Static\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Static\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -98,9 +129,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\business\WarningSystem.Business.csproj">
+      <Project>{c6e37943-8a24-4646-ad25-63701d8a5fc5}</Project>
+      <Name>WarningSystem.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\model\WarningSystem.Model.csproj">
+      <Project>{24777439-5b86-4ffa-b8ab-3fdc0af0e9b3}</Project>
+      <Name>WarningSystem.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -115,7 +151,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55463</DevelopmentServerPort>
+          <DevelopmentServerPort>8039</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:55463/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

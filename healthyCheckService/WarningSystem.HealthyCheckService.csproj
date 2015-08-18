@@ -37,7 +37,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,11 +55,42 @@
       <DependentUpon>HealthyCheckService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Install.bat" />
     <None Include="packages.config" />
+    <None Include="UnInstall.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\business\WarningSystem.Business.csproj">
+      <Project>{C6E37943-8A24-4646-AD25-63701D8A5FC5}</Project>
+      <Name>WarningSystem.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\model\WarningSystem.Model.csproj">
+      <Project>{24777439-5B86-4FFA-B8AB-3FDC0AF0E9B3}</Project>
+      <Name>WarningSystem.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\utility\WarningSystem.Utility.csproj">
+      <Project>{EC662CD6-F87B-4A21-B711-58C3152F2568}</Project>
+      <Name>WarningSystem.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\warning-client\WarningSystem.Warning-client.csproj">
+      <Project>{f09b2c16-1614-4997-8031-3ff3f5a61820}</Project>
+      <Name>WarningSystem.Warning-client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

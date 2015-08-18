@@ -8,6 +8,8 @@ namespace warning
 {
     internal partial class Common
     {
+      
+
         /// <summary>
         ///     通讯函数  Post
         /// </summary>
@@ -66,81 +68,6 @@ namespace warning
                 throw new Exception("发送web post请求出现异常", ex);
             }
         }
-
-
-        /// <summary>
-        ///     通讯函数   Get
-        /// </summary>
-        /// <param name="url">请求Url</param>
-        /// <param name="paras"></param>
-        /// <param name="timeout"></param>
-        /// <param name="encode"></param>
-        /// <param name="callBack"></param>
-        /// <param name="userAgent"></param>
-        /// <returns></returns>
-        internal static string SendGetRequest(string url, string paras, int timeout, Encoding encode,
-            RemoteCertificateValidationCallback callBack = null, string userAgent = null)
-        {
-            if (String.IsNullOrEmpty(url))
-            {
-                return String.Empty;
-            }
-            if (!url.Contains("?") && !String.IsNullOrEmpty(paras))
-            {
-                url = url + "?";
-            }
-            string requestUrl = url + paras;
-
-            HttpWebResponse response = null;
-            Stream stream = null;
-            StreamReader reader = null;
-            try
-            {
-                var request = (HttpWebRequest)WebRequest.Create(requestUrl);
-                request.Timeout = timeout;
-                request.Method = "GET";
-                if (userAgent != null)
-                {
-                    request.UserAgent = userAgent;
-                }
-                if (callBack != null)
-                {
-                    ServicePointManager.ServerCertificateValidationCallback = callBack;
-                }
-
-                response = (HttpWebResponse)request.GetResponse();
-                stream = response.GetResponseStream();
-                if (stream != null) reader = new StreamReader(stream, encode);
-                var strBuilder = new StringBuilder();
-                while (reader != null && -1 != reader.Peek())
-                {
-                    strBuilder.Append(reader.ReadLine());
-                }
-                return strBuilder.ToString();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("发送web get请求出现异常", ex);
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Close();
-                    reader.Dispose();
-                }
-                if (stream != null)
-                {
-                    stream.Close();
-                    stream.Dispose();
-                }
-                if (response != null)
-                {
-                    response.Close();
-                }
-            }
-        }
-
     }
 
     internal enum ContentType

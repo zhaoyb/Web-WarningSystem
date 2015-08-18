@@ -1,25 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AutoMapper;
+using dto;
+using model;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
+using utility;
 
 namespace notifyservice
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
-        static void Main()
+        private static void Main()
         {
+            ModelMapper();
             ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new HandleService() 
+            ServicesToRun = new ServiceBase[]
+            {
+                new HandleService()
             };
             ServiceBase.Run(ServicesToRun);
+        }
+
+        private static void ModelMapper()
+        {
+            Mapper.CreateMap<ErrorEntityDto, ErrorEntity>()
+                .ForMember(dest => dest.ServerVariables,
+                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.ServerVariables)))
+                .ForMember(dest => dest.QueryString,
+                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.QueryString)))
+                .ForMember(dest => dest.Form,
+                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.Form)))
+                .ForMember(dest => dest.Cookies,
+                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.Cookies)));
         }
     }
 }

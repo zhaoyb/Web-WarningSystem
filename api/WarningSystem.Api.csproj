@@ -72,10 +72,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\dto\WarningSystem.Dto.csproj">
       <Project>{8F64DF9D-66D8-44DC-9C22-F8D2C73F4118}</Project>

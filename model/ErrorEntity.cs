@@ -14,12 +14,12 @@ namespace model
         public string ExceptionSource { get; set; }
         public string ExceptionDetail { get; set; }
         public int HttpStatusCode { get; set; }
-        public string HttpHostHtmlMessage { get; set; }
         public string RequestUrl { get; set; }
         public NameValueCollection ServerVariables { get; set; }
         public NameValueCollection QueryString { get; set; }
         public NameValueCollection Form { get; set; }
         public NameValueCollection Cookies { get; set; }
         public DateTime DateTime { get; set; }
+        public int NotityStatus { get; set; }   //通知状态   0  未通知，  1 已通知
     }
 }

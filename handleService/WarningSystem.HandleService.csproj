@@ -32,8 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,20 +55,42 @@
       <DependentUpon>HandleService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Install.bat" />
+    <None Include="packages.config" />
+    <None Include="UnInstall.bat" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\business\WarningSystem.Business.csproj">
+      <Project>{C6E37943-8A24-4646-AD25-63701D8A5FC5}</Project>
+      <Name>WarningSystem.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dto\WarningSystem.Dto.csproj">
       <Project>{8F64DF9D-66D8-44DC-9C22-F8D2C73F4118}</Project>
       <Name>WarningSystem.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\model\WarningSystem.Model.csproj">
+      <Project>{24777439-5B86-4FFA-B8AB-3FDC0AF0E9B3}</Project>
+      <Name>WarningSystem.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\utility\WarningSystem.Utility.csproj">
       <Project>{EC662CD6-F87B-4A21-B711-58C3152F2568}</Project>
       <Name>WarningSystem.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
