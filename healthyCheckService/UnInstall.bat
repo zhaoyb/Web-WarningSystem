@@ -1,1 +1,1 @@
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\installutil.exe /u healthyCheckService
+%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\installutil.exe /u healthyCheckService.exe

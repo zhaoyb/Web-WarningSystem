@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Text;
 using System.Threading;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace warning
 {
     public class ClientErrorEntity
     {
+        [JsonProperty]
         public static string WebToken { get; set; }
 
 
@@ -23,11 +26,12 @@ namespace warning
         public string ExceptionDetail { get; set; }
         public int HttpStatusCode { get; set; }
         public string RequestUrl { get; set; }
-        public NameValueCollection ServerVariables { get; set; }
-        public NameValueCollection QueryString { get; set; }
-        public NameValueCollection Form { get; set; }
-        public NameValueCollection Cookies { get; set; }
+        public Dictionary<string,string> ServerVariables { get; set; }
+        public Dictionary<string, string> QueryString { get; set; }
+        public Dictionary<string, string> Form { get; set; }
+        public Dictionary<string, string> Cookies { get; set; }
         public DateTime DateTime { get; set; }
+        public int Type { get; set; }   //异常类型， 0 系统异常，  1 监测访问异常
 
         static ClientErrorEntity()
         {
@@ -65,11 +69,12 @@ namespace warning
             {
                 HttpRequest request = httpContext.Request;
                 RequestUrl = request.Url.AbsoluteUri;
-                ServerVariables = Common.CopyCollection(request.ServerVariables);
-                QueryString = Common.CopyCollection(request.QueryString);
-                Form = Common.CopyCollection(request.Form);
-                Cookies = Common.CopyCollection(request.Cookies);
+                ServerVariables = Common.ConvertCollectionToDictionary(request.ServerVariables);
+                QueryString = Common.ConvertCollectionToDictionary(request.QueryString);
+                Form = Common.ConvertCollectionToDictionary(request.Form);
+                Cookies = Common.ConvertCollectionToDictionary(request.Cookies);
             }
+            Type = 0;
         }
       
     }

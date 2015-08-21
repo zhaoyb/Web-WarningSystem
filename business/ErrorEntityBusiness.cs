@@ -5,7 +5,7 @@ namespace business
     public class ErrorEntityBusiness : BaseBusiness<ErrorEntity>
     {
         public ErrorEntityBusiness()
-            : base("ErrorEntity", "")
+            : base("ErrorEntity", "Id")
         {
         }
     }

@@ -13,7 +13,11 @@ namespace notifyservice
         /// </summary>
         private static void Main()
         {
+            log4net.Config.XmlConfigurator.Configure();
+            RedisHelper.Init();
             ModelMapper();
+
+
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
@@ -26,13 +30,13 @@ namespace notifyservice
         {
             Mapper.CreateMap<ErrorEntityDto, ErrorEntity>()
                 .ForMember(dest => dest.ServerVariables,
-                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.ServerVariables)))
+                    opt => opt.MapFrom(src => DictionaryHelper.PrintDictionary(src.ServerVariables)))
                 .ForMember(dest => dest.QueryString,
-                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.QueryString)))
+                    opt => opt.MapFrom(src => DictionaryHelper.PrintDictionary(src.QueryString)))
                 .ForMember(dest => dest.Form,
-                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.Form)))
+                    opt => opt.MapFrom(src => DictionaryHelper.PrintDictionary(src.Form)))
                 .ForMember(dest => dest.Cookies,
-                    opt => opt.MapFrom(src => NameValueCollectionHelper.PrintNameValueCollection(src.Cookies)));
+                    opt => opt.MapFrom(src => DictionaryHelper.PrintDictionary(src.Cookies)));
         }
     }
 }

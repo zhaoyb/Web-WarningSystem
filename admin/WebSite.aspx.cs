@@ -11,13 +11,15 @@ namespace admin
 {
     public partial class WebSite : Page
     {
-        private string _clientkey = string.Empty;
+        public string Clientkey = string.Empty;
 
         private readonly WebSiteBusiness _webSiteBusiness = new WebSiteBusiness();
 
+        private readonly WebServerBusiness _webServerBusiness = new WebServerBusiness();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            _clientkey = Guid.NewGuid().ToString("N");
+            Clientkey = Guid.NewGuid().ToString("N");
             if (Request.HttpMethod == "POST")
             {
                 Update();
@@ -36,8 +38,8 @@ namespace admin
             int id;
             if (int.TryParse(Request.QueryString["id"], out id))
             {
-                model.WebSite webSite = _webSiteBusiness.GetSingleOrDefault(string.Format("select * from WebSite where Id={0}", id));
-                Response.Write(new JavaScriptSerializer().Serialize(new { webSite }));
+                model.WebSite data = _webSiteBusiness.GetSingleOrDefault(string.Format("select * from WebSite where Id={0}", id));
+                Response.Write(new JavaScriptSerializer().Serialize(new { data }));
                 Response.End();
             }
         }
@@ -51,97 +53,55 @@ namespace admin
                 webSite = _webSiteBusiness.GetSingleOrDefault(string.Format("select * from WebSite where Id={0}", id));
                 if (webSite != null)
                 {
-                    if (Request.Form.AllKeys.Contains("delete")) //delete       //考虑变更为分布式事务
+                    if (Request.Form.AllKeys.Contains("delete")) //delete      
                     {
-                        foreach (JobInfo jobInfo in JobBusiness.GetJobInfoBySiteId(id))  //删除job
-                        {
-                            JobBusiness.Delete(jobInfo);
-                        }
-
-                        foreach (UserSiteMapping siteMapping in UserSiteMappingBusiness.GetUserSiteMappingBySiteId(id))  //删除mapping信息
-                        {
-                            UserSiteMappingBusiness.Delete(siteMapping);
-                        }
-                        SiteBusiness.Delete(site);
+                        //1 删除站点下的服务器
+                        _webServerBusiness.DeleteBySql(string.Format("where WebId = {0}", id));
+                        //2 删除站点信息
+                        _webSiteBusiness.Delete(webSite);
                     }
                     else
                     {
-                        webSite.SiteName = Request.Form["SiteName"];
-                        webSite.SiteUrl = Request.Form["SiteUrl"];
+                        webSite.WebName = Request.Form["WebName"];
+                        webSite.Host = Request.Form["Host"];
+                        webSite.Manager = Request.Form["Manager"];
+                        webSite.ManagerPhone = Request.Form["ManagerPhone"];
+                        webSite.ManagerEmail = Request.Form["ManagerEmail"];
+                        webSite.CheckUrl = Request.Form["CheckUrl"];
 
-                        bool sitestatus = Request.Form.AllKeys.Contains("SiteStatus");
-                        if (webSite.SiteStatus != sitestatus) //site status调整，job 线程状态跟着调整
-                        {
-                            foreach (JobInfo jobinfo in JobBusiness.GetJobInfoBySiteId(id))
-                            {
-                                jobinfo.JobStatus = sitestatus;
-                                JobBusiness.Update(jobinfo);
-                            }
-                        }
-                        webSite.SiteStatus = sitestatus;
-                        webSite.SiteToken = Request.Form["SiteToken"];
 
-                        SiteBusiness.Update(site);
+                        bool existsEnable = Request.Form.AllKeys.Contains("Enable");
+                        webSite.Enable = existsEnable ? 1 : 0;
+                        _webSiteBusiness.Update(webSite);
                     }
                 }
             }
             else
             {
-                webSite = new  model.WebSite()
-                {
-                    SiteName = Request.Form["SiteName"],
-                    SiteUrl = Request.Form["SiteUrl"],
-                    SiteStatus = Request.Form.AllKeys.Contains("SiteStatus"),
-                    SiteToken = Request.Form["SiteToken"],
-                    SiteLevel = Request.Form["SiteLevel"],
-                    SiteAuthor = CurrentUser.RealName
-                };
-                string backupInterval = Request.Form["SiteBackUpInterval"];
-                int initerval;
-                if (!int.TryParse(backupInterval, out initerval))
-                {
-                    Response.Write("IntervalFormatError");
-                    Response.End();
-                }
-                site.SiteBackUpInterval = initerval;
-                site.SiteBackUpIntervalUnit = Request.Form["SiteBackUpIntervalUnit"];
-                string backupTime = Request.Form["SiteNextBackUpTime"];
-                DateTime time;
-                if (!DateTime.TryParse(backupTime, out time))
-                {
-                    Response.Write("TimeFormatError");
-                    Response.End();
-                }
-                site.SiteNextBackUpTime = backupTime;
-                if (SiteBusiness.GetSiteInfos().FirstOrDefault(s => s.SiteName.ToLower() == site.SiteName.ToLower()) != null)
+                string webName = Request.Form["WebName"] ?? "";
+                webSite = _webSiteBusiness.GetSingleOrDefault(string.Format("select * from WebSite where WebName='{0}'", webName));
+
+                if (webSite != null)
                 {
                     Response.Write("exists");
                     Response.End();
                 }
-                if (site.SiteName.ToLower() == "all")
+                else
                 {
-                    Response.Write("keyword");
-                    Response.End();
-                }
-                SiteBusiness.Save(site);
-                UserSiteMappingBusiness.Save(new UserSiteMapping
-                {
-                    SiteId = site.Id,
-                    UserId = CurrentUser.Id
-                });
-
-                foreach (JobServiceInfo item in JobServiceBusiness.GetJobServiceInfos()) //新增site ，也就在job中新增site
-                {
-                    JobBusiness.Save(new JobInfo
+                    webSite = new model.WebSite()
                     {
-                        JobServiceId = item.Id,
-                        JobThreadCount = GetThreadCountByLevel(site.SiteLevel),
-                        JobStatus = site.SiteStatus,
-                        SiteId = site.Id
-                    });
+                        WebName = Request.Form["WebName"],
+                        Host = Request.Form["Host"],
+                        WebToken = Request.Form["WebToken"],
+                        Manager = Request.Form["Manager"],
+                        ManagerPhone = Request.Form["ManagerPhone"],
+                        ManagerEmail = Request.Form["ManagerEmail"],
+                        CheckUrl = Request.Form["CheckUrl"],
+                        Enable = Request.Form.AllKeys.Contains("Enable") ? 1 : 0
+                    };
+                    _webSiteBusiness.Insert(webSite);
                 }
             }
-
             Response.Write("ok");
             Response.End();
         }

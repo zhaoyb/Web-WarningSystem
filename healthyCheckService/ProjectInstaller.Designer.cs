@@ -40,8 +40,8 @@
             // serviceInstaller1
             // 
             this.serviceInstaller1.Description = "访问站点的指定页面， 确定是否返回了正确的信息";
-            this.serviceInstaller1.DisplayName = "Web健康检查";
-            this.serviceInstaller1.ServiceName = "WarningSystem-HealthyCheckService";
+            this.serviceInstaller1.DisplayName = "WarningSystem.HealthyCheckService";
+            this.serviceInstaller1.ServiceName = "WarningSystem.HealthyCheckService";
             // 
             // ProjectInstaller
             // 

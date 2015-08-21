@@ -17,14 +17,19 @@ namespace business
             this.PrimaryKey = primaryKey;
         }
 
-        public void Insert(T t)
+        public void Insert(T t, bool autoIncrement=true)
         {
-            db.Insert(TableName, PrimaryKey, t);
+            db.Insert(TableName, PrimaryKey, autoIncrement, t);
         }
 
         public void Update(T t)
         {
             db.Update(TableName, PrimaryKey, t);
+        }
+
+        public void UpdateBySql(string sql)
+        {
+            db.Update<T>(sql,null);
         }
 
         public void Update(Object param, object id)
@@ -37,9 +42,14 @@ namespace business
             db.Delete(t);
         }
 
-        public void Delete(int id)
+        public void DeleteById(int id)
         {
             db.Delete(TableName, PrimaryKey, id);
+        }
+
+        public void DeleteBySql(string sql)
+        {
+            db.Delete<T>(sql,null);
         }
 
         public T GetSingleOrDefault(string sql)

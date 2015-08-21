@@ -40,25 +40,30 @@ namespace webcheckservice
         private  void Handle()
         {
             //获取所有的网站， 依次检查返回的是否为ok, 或者检查http.status=200
-            IEnumerable<WebSite> webSites= _webSiteBusiness.GetList("select * from WebSite");
+            IEnumerable<WebSite> webSites= _webSiteBusiness.GetList("select * from WebSite where Enable = 1");
             Parallel.ForEach(webSites, website =>
             {
                 IEnumerable<WebServer> webServers =
                     _webServerBusiness.GetList(
-                        (string.Format("select * from WebServer where WebToken='{0}'", website.WebToken)));
+                        (string.Format("select * from WebServer where Enable = 1 and WebId={0}", website.Id)));
 
                 Parallel.ForEach(webServers, webserver =>
                 {
                     //这里如果你仅仅想获取状态码， 可以调用 HttpHelper.GetHttpStatus()
-                   var responseText= HttpHelper.SendGetRequest("http://" + webserver.ServerIp + "", "", website.WebUrl, 3000,
+                   var responseText= HttpHelper.SendGetRequest("http://" + webserver.ServerIp + website.CheckUrl, website.Host, website.Host, 3000,
                         Encoding.UTF8);
-
                     if (responseText != "ok")
                     {
                         //站点出了异常，需要发送到服务端进行处理
                         ClientErrorEntity clientErrorEntity = new ClientErrorEntity();
-                        clientErrorEntity.ExceptionMessage = website.WebName + "(" + "http://" + webserver.ServerIp + "" + ")" + "访问发生异常";
+                        clientErrorEntity.ExceptionMessage = website.WebName + "(" + "http://" + webserver.ServerIp + website.CheckUrl + ")" + "访问发生异常,异常信息如下：" + responseText;
+                        clientErrorEntity.Ip = webserver.ServerIp;
+                        clientErrorEntity.RequestUrl = "http://" + webserver.ServerIp + website.CheckUrl;
+                        clientErrorEntity.Type = 1;
+
+
                         ClientErrorEntity.WebToken = website.WebToken;   //重新设置Token
+
 
                         SendErrorEntity.SendError(clientErrorEntity);
                     }

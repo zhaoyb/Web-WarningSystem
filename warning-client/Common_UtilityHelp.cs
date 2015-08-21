@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
@@ -9,26 +10,32 @@ namespace warning
 {
     internal partial class Common
     {
-        internal static NameValueCollection CopyCollection(NameValueCollection collection)
+        internal static Dictionary<string,string> ConvertCollectionToDictionary(NameValueCollection collection)
         {
+            var dic = new Dictionary<string, string>();
+
             if (collection == null || collection.Count == 0)
-                return new NameValueCollection();
-            return new NameValueCollection(collection);
+                return dic;
+
+            foreach (string key in collection)
+            {
+                dic.Add(key, collection[key]);
+            }
+            return dic;
         }
 
-        internal static NameValueCollection CopyCollection(HttpCookieCollection cookies)
+        internal static Dictionary<string, string> ConvertCollectionToDictionary(HttpCookieCollection cookies)
         {
+            var dic = new Dictionary<string, string>();
             if (cookies == null || cookies.Count == 0)
-                return new NameValueCollection();
+                return dic;
 
-            NameValueCollection cookieCollection = new NameValueCollection(cookies.Count);
-            for (int i = 0; i < cookies.Count; i++)
+
+            foreach (HttpCookie httpCookie in cookies)
             {
-                HttpCookie cookie = cookies[i];
-                cookieCollection.Add(cookie.Name, cookie.Value);
+                dic.Add(httpCookie.Name, httpCookie.Value);
             }
-
-            return cookieCollection;
+            return dic;
         }
 
 

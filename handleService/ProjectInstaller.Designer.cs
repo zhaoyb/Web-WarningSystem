@@ -40,8 +40,8 @@
             // serviceInstaller1
             // 
             this.serviceInstaller1.Description = "根据收集和监控到的异常， 将异常信息发送到指定负责人";
-            this.serviceInstaller1.DisplayName = "异常处理服务";
-            this.serviceInstaller1.ServiceName = "WarningSystem-HandleService";
+            this.serviceInstaller1.DisplayName = "WarningSystem.HandleService";
+            this.serviceInstaller1.ServiceName = "WarningSystem.HandleService";
             // 
             // ProjectInstaller
             // 

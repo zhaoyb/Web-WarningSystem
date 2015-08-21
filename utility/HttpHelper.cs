@@ -128,7 +128,7 @@ namespace utility
         /// <param name="callBack"></param>
         /// <param name="userAgent"></param>
         /// <returns></returns>
-        public static string SendGetRequest(string url, string paras,string host, int timeout, Encoding encode,
+        public static string SendGetRequest(string url, string paras, string host, int timeout, Encoding encode,
             RemoteCertificateValidationCallback callBack = null, string userAgent = null)
         {
             if (String.IsNullOrEmpty(url))
@@ -149,7 +149,8 @@ namespace utility
                 var request = (HttpWebRequest)WebRequest.Create(requestUrl);
                 request.Timeout = timeout;
                 request.Method = "GET";
-                request.Host = host;
+                if (!string.IsNullOrEmpty(host))
+                    request.Host = host;
 
                 if (userAgent != null)
                 {
@@ -171,7 +172,7 @@ namespace utility
             }
             catch (Exception ex)
             {
-                return "发送web get请求出现异常";
+                return ex.Message;
             }
             finally
             {

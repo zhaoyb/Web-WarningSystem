@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace utility
 {
-    public class NameValueCollectionHelper
+    public class DictionaryHelper
     {
-        public static string PrintNameValueCollection(NameValueCollection nameValueCollection)
+        public static string PrintDictionary(Dictionary<string,string> nameValueCollection)
         {
             StringBuilder namevalueText = new StringBuilder();
-            foreach (string key in nameValueCollection.AllKeys)
+            foreach (string key in nameValueCollection.Keys)
             {
-                namevalueText.AppendLine(key + ":" + nameValueCollection[key]);
+                namevalueText.AppendLine(key + "=" + nameValueCollection[key]);
             }
             return namevalueText.ToString();
         }

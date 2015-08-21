@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace dto
@@ -15,10 +16,11 @@ namespace dto
         public string ExceptionDetail { get; set; }
         public int HttpStatusCode { get; set; }
         public string RequestUrl { get; set; }
-        public NameValueCollection ServerVariables { get; set; }
-        public NameValueCollection QueryString { get; set; }
-        public NameValueCollection Form { get; set; }
-        public NameValueCollection Cookies { get; set; }
+        public Dictionary<string, string> ServerVariables { get; set; }
+        public Dictionary<string, string> QueryString { get; set; }
+        public Dictionary<string, string> Form { get; set; }
+        public Dictionary<string, string> Cookies { get; set; }
         public DateTime DateTime { get; set; }
+        public int Type { get; set; }
     }
 }

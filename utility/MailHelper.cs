@@ -150,7 +150,7 @@ namespace utility
             {
                 var message = new MailMessage
                 {
-                    IsBodyHtml = false,
+                    IsBodyHtml = true,
                     Subject = mailSubjct,
                     Body = mailBody,
                     From = new MailAddress(mailFrom)

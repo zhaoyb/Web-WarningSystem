@@ -6,7 +6,7 @@ namespace model
     public class ErrorEntity
     {
         public string Id { get; set; }
-        public string WebToekn { get; set; }
+        public string WebToken { get; set; }
         public string MachineName { get; set; }
         public string Ip { get; set; }
         public string ExceptionType { get; set; }
@@ -15,11 +15,11 @@ namespace model
         public string ExceptionDetail { get; set; }
         public int HttpStatusCode { get; set; }
         public string RequestUrl { get; set; }
-        public NameValueCollection ServerVariables { get; set; }
-        public NameValueCollection QueryString { get; set; }
-        public NameValueCollection Form { get; set; }
-        public NameValueCollection Cookies { get; set; }
+        public string ServerVariables { get; set; }
+        public string QueryString { get; set; }
+        public string Form { get; set; }
+        public string Cookies { get; set; }
         public DateTime DateTime { get; set; }
-        public int NotityStatus { get; set; }   //通知状态   0  未通知，  1 已通知
+        public int NotifyStatus { get; set; }   //通知状态   0  未通知，  1 已通知
     }
 }

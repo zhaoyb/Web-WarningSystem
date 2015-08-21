@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseBusiness.cs" />
+    <Compile Include="ReportBusiness.cs" />
+    <Compile Include="ErrorEntitiesBusiness.cs" />
     <Compile Include="ErrorEntityBusiness.cs" />
     <Compile Include="Models\Generated\Database.cs">
       <AutoGen>True</AutoGen>
@@ -65,6 +67,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dto\WarningSystem.Dto.csproj">
+      <Project>{8F64DF9D-66D8-44DC-9C22-F8D2C73F4118}</Project>
+      <Name>WarningSystem.Dto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\model\WarningSystem.Model.csproj">
       <Project>{24777439-5b86-4ffa-b8ab-3fdc0af0e9b3}</Project>
       <Name>WarningSystem.Model</Name>

@@ -33,7 +33,7 @@ namespace utility
             {
                 if (redisconfig["DefaultDb"] != null)
                 {
-                    defaultDb = Convert.ToInt64(redisconfig["DBIndex"].ToString());
+                    defaultDb = Convert.ToInt64(redisconfig["DefaultDb"].ToString());
                 }
 
                 if (redisconfig["ReadWriteHosts"] != null)

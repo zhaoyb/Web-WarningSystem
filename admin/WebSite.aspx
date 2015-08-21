@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="WebSite.aspx.cs" Inherits="admin.WebSite" ValidateRequest="false" %>
 
-<%@ Register TagPrefix="HJ" TagName="Nav" Src="~/Controls/HeaderNav.ascx" %>
+<%@ Register TagPrefix="Warning" TagName="Nav" Src="~/Controls/HeaderNav.ascx" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>沪江站点日志系统</title>
+    <title>异常报警系统</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,14 +52,6 @@
                 }
                 if (res == 'exists') {
                     alert('指定的站点名称已存在');
-                } else if (res == 'IntervalFormatError') {
-                    alert("备份频率数值不正确");
-                } else if (res == 'TimeFormatError') {
-                    alert("备份时间数值不正确");
-                } else if (res == 'keyword') {
-                    alert("站点名称为关键字");
-                } else if (res == 'TimeError') {
-                    alert("备份时间必须大于当前时间");
                 }
             });
         }
@@ -83,25 +75,12 @@
     </style>
 </head>
 <body>
-    <HJ:Nav ID="Nav" runat="server" />
+    <Warning:Nav ID="Nav" runat="server" />
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">日志中心</a></li>
-            <li class="active">站点列表( <a id="newplatform" data-toggle="modal" data-target="#myModal">添加新站点</a>)</li>
+            <li><a href="/">异常报警系统</a></li>
+            <li class="active">监控站点( <a id="newplatform" data-toggle="modal" data-target="#myModal">添加新站点</a>)</li>
         </ol>
-
-
-
-        <form class="well form-search ">
-            <div class="col-xs-6">
-                <div class="input-group">
-                    <span class="input-group-addon">搜索</span>
-                    <input type="text" class="form-control glyphicon-search" id="exampleInputEmail2" name="keyword" placeholder="站点名称或URL或密钥" value="<%=HttpUtility.HtmlEncode(Keyword) %>" />
-                </div>
-
-            </div>
-            <button type="submit" class="btn btn-default">查询</button>
-        </form>
         <div class="row">
             <div class="col-lg-12">
                 <table class="table table-striped table-responsive">
@@ -111,46 +90,36 @@
                             </td>
                             <td>站点名称
                             </td>
-                            <td>URL
+                            <td>Host
                             </td>
-                            <td>级别
+                            <td>负责人
                             </td>
-                             <td>备份频率
+                             <td>负责人手机
                             </td>
-                             <td>下次备份时间
+                             <td>负责人邮箱
+                            </td>
+                              <td>CheckUrl
                             </td>
                             <td>是否启用
                             </td>
                             <td>操作</td>
-                            <td>创建人</td>
                         </tr>
                     </thead>
                     <tbody>
                         <asp:Repeater ID="rep_main" runat="server">
                             <ItemTemplate>
-                                <tr <%# !(bool)Eval("SiteStatus") ? "class=\"danger\"":string.Empty %>>
+                                <tr <%# Eval("Enable").ToString()=="0" ? "class=\"danger\"":string.Empty %>>
                                     <td><%# Eval("Id") %></td>
-                                    <td><%# Eval("SiteName") %></td>
-                                    <td><%# Eval("SiteUrl") %></td>
-                                    <td><%# Eval("SiteLevel") %></td>
-                                    <td><%# Eval("SiteBackUpInterval") %><%# Eval("SiteBackUpIntervalUnit") %></td>
-                                    <td><%# Eval("SiteNextBackUpTime") %></td>
-                                    <td><%# (bool)Eval("SiteStatus") ? "<span class=\"label label-success\">有效</span>":"<span class=\"label label-default\">无效</span>" %></td>
+                                    <td><%# Eval("WebName") %></td>
+                                    <td><%# Eval("Host") %></td>
+                                    <td><%# Eval("Manager") %></td>
+                                    <td><%# Eval("ManagerPhone") %></td>
+                                    <td><%# Eval("ManagerEmail") %></td>
+                                    <td><%# Eval("CheckUrl") %></td>
+                                    <td><%#  Eval("Enable").ToString()=="1" ? "<span class=\"label label-success\">启用</span>":"<span class=\"label label-default\">关闭</span>" %></td>
                                     <td>
-                                        <% if (CurrentUser.IsManager)
-                                           { %>
                                         <a data-toggle="modal"  class="btn btn-default" href="#1" data-target="#myModal" data-id='<%# Eval("Id") %>'>修改</a>
-                                         <a class="btn btn-default" target="_blank" href='/BackUpLog.aspx?siteId=<%# Eval("Id") %>'>查看备份情况</a>
-                                        <a class="btn btn-default" target="_blank" href='/JobList.aspx?siteId=<%# Eval("Id") %>'>查看Job情况</a>
-                                        <% }
-                                           else
-                                           {
-                                        %>
-                                        <a data-toggle="modal"  class="btn btn-default" href="#1" data-target="#myModal" data-id='<%# Eval("Id") %>'>查看</a>
-                                        <% } %>
-                                    </td>
-                                    <td>
-                                        <%# Eval("SiteAuthor") %>
+                                        <a class="btn btn-default" target="_blank" href='/WebService.aspx?WebId=<%# Eval("Id") %>'>服务器列表</a>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -159,11 +128,7 @@
                 </table>
             </div>
         </div>
-
     </div>
-
-
-
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -175,7 +140,6 @@
                 </div>
                 <div class="modal-body">
                 </div>
-
             </div>
             <!-- /.modal-content -->
         </div>
@@ -183,58 +147,61 @@
     </div>
     <!-- /.modal -->
 
-
     <script type="text/x-jquery-tmpl" id="add_tmpl">
         <form id="form_add" class="form-horizontal" role="form">
             <div class="form-group">
-                <label for="add_sitename" class="col-sm-2 control-label">站点名称</label>
+                <label for="add_WebNamee" class="col-sm-2 control-label">站点名称</label>
                 <div class="col-xs-8">
-                    <input onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z]/g,'')" oncontextmenu = "value=value.replace(/[^\a-\z\A-\Z]/g,'')" type="text" class="form-control" id="add_sitename" name="sitename" value="" placeholder="站点名称(英文)">
+                    <input  type="text" class="form-control" id="add_WebNamee" name="WebName" value="" placeholder="站点名称">
                 </div>
             </div>
             <div class="form-group">
-                <label for="add_siteurl" class="col-sm-2 control-label">站点URL</label>
+                <label for="add_Host" class="col-sm-2 control-label">域名</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" id="add_siteurl" name="siteUrl" value="" placeholder="站点URL">
+                    <input type="text" class="form-control" id="add_Host" name="Host" value="" placeholder="域名">
                 </div>
             </div>
             <div class="form-group">
-                <label for="add_SiteLevel" class="col-sm-2 control-label">站点级别</label>
+                <label for="add_WebToken" class="col-sm-2 control-label">站点密钥</label>
                 <div class="col-xs-8">
-                    <select id="add_SiteLevel" name="SiteLevel" class="form-control">
-                         <option value="高">高</option>
-                         <option value="中" selected="selected">中</option>
-                         <option value="低">低</option>
-                    </select>
+                    <input type="text" class="form-control" id="add_WebToken" name="WebToken" value="<%=Clientkey %>" readonly="readonly" placeholder="站点密钥">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="add_sitebackupinterval" class="col-sm-2 control-label">备份频率</label>
+            
+              <div class="form-group">
+                <label for="add_Manager" class="col-sm-2 control-label">负责人</label>
                 <div class="col-xs-8">
-                    <input type="text"  id="add_sitebackupinterval" class="form-control-custom" name="sitebackupinterval" value="" placeholder="备份频率" style="width: 100px">&nbsp;&nbsp;
-                    <select id="add_SiteBackUpIntervalUnit" name="SiteBackUpIntervalUnit"  style="width: 100px" class="form-control-custom">
-                         <option value="秒">秒</option>
-                         <option value="分" selected="selected">分</option>
-                    </select>
+                    <input type="text" class="form-control" id="add_Manager" name="Manager" placeholder="负责人">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="add_SiteNextBackUpTime" class="col-sm-2 control-label">下次备份时间</label>
+            
+              <div class="form-group">
+                <label for="add_ManagerPhone" class="col-sm-2 control-label">负责人手机</label>
                 <div class="col-xs-8">
-                    <input type="text" id="add_SiteNextBackUpTime" name="SiteNextBackUpTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" style="width:210px"/>
+                    <input type="text" class="form-control" id="add_ManagerPhone" name="ManagerPhone"  placeholder="负责人手机">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="add_siteToken" class="col-sm-2 control-label">站点密钥</label>
+            
+              <div class="form-group">
+                <label for="add_ManagerEmailn" class="col-sm-2 control-label">负责人邮箱</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" id="add_siteToken" name="SiteToken" value="<%=Clientkey %>" readonly="readonly" placeholder="站点密钥">
+                    <input type="text" class="form-control" id="add_ManagerEmailn" name="ManagerEmail"  placeholder="负责人邮箱">
                 </div>
             </div>
+            
+              <div class="form-group">
+                <label for="add_CheckUrl" class="col-sm-2 control-label">监控页面</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" id="add_CheckUrl" name="CheckUrl" placeholder="监控页面">
+                </div>
+            </div>
+            
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="SiteStatus" checked="checked" value="1" />
+                            <input type="checkbox" name="Enable" checked="checked" value="1" />
                             启用
                         </label>
                     </div>
@@ -243,7 +210,6 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="button" class="btn btn-primary" onclick="save();">添加</button>
-
                 </div>
             </div>
         </form>
@@ -252,63 +218,52 @@
     <script type="text/x-jquery-tmpl" id="edit_tmpl">
         <form id="edit_form" class="form-horizontal" role="form">
             <div class="form-group">
-                <label for="edit_SiteName" class="col-sm-2 control-label">站点名称</label>
+                <label for="edit_WebName" class="col-sm-2 control-label">站点名称</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" id="edit_SiteName" name="SiteName" readonly="readonly" value="${data.SiteName}" placeholder="站点名称">
+                    <input type="text" class="form-control" id="edit_WebName" name="WebName"  value="${data.WebName}" placeholder="站点名称">
                 </div>
             </div>
             <div class="form-group">
-                <label for="edit_SiteUrl" class="col-sm-2 control-label">站点URL</label>
+                <label for="edit_Host" class="col-sm-2 control-label">域名</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" id="edit_SiteUrl" name="SiteUrl" value="${data.SiteUrl}" placeholder="站点URL">
+                    <input type="text" class="form-control" id="edit_Host" name="Host" value="${data.Host}" placeholder="域名">
                 </div>
             </div>
-                <div class="form-group">
-                <label for="edit_SiteLevel" class="col-sm-2 control-label">站点级别</label>
-                <div class="col-xs-8">
-                    <select id="edit_SiteLevel" name="SiteLevel" class="form-control">
-                         <option value="高" {{if '高'==data.SiteLevel}} selected="selected"{{/if}} >高</option>
-                         <option value="中" {{if '中'==data.SiteLevel}} selected="selected"{{/if}} >中</option>
-                         <option value="低" {{if '低'==data.SiteLevel}} selected="selected"{{/if}} >低</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="edit_sitebackupinterval" class="col-sm-2 control-label">备份频率</label>
-                <div class="col-xs-8">
-                    <input type="text" id="edit_sitebackupinterval" name="sitebackupinterval" value="${data.SiteBackUpInterval}" placeholder="备份频率" style="width: 100px">&nbsp;&nbsp;
-
-                    <select id="edit_SiteBackUpIntervalUnit" name="SiteBackUpIntervalUnit" style="width: 100px" >
-                         <option value="秒" {{if '秒'==data.SiteBackUpIntervalUnit}} selected="selected"{{/if}}>秒</option>
-                         <option value="分" {{if '分'==data.SiteBackUpIntervalUnit}} selected="selected"{{/if}}>分</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="editd_SiteNextBackUpTime" class="col-sm-2 control-label">下次备份时间</label>
-                <div class="col-xs-8">
-                    <input type="text" id="editd_SiteNextBackUpTime" name="SiteNextBackUpTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="${data.SiteNextBackUpTime}" class="Wdate" style="width:210px"/>
-                </div>
-            </div>
-
             <div class="form-group">
                 <label for="edit_SiteToken" class="col-sm-2 control-label">站点密钥</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="edit_SiteToken" name="SiteToken" readonly="readonly" value="${data.SiteToken}" placeholder="站点密钥">
+                    <input type="text" class="form-control" id="edit_SiteToken" name="SiteToken" readonly="readonly" value="${data.WebToken}" placeholder="站点密钥">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="edit_SiteAuthor" class="col-sm-2 control-label">创建人</label>
+             <div class="form-group">
+                <label for="edit_Manager" class="col-sm-2 control-label">负责人</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="edit_SiteAuthor" name="SiteAuthor" readonly="readonly" value="${data.SiteAuthor}" placeholder="创建人">
+                    <input type="text" class="form-control" id="edit_Manager" name="Manager"  value="${data.Manager}" placeholder="负责人">
                 </div>
             </div>
-
+             <div class="form-group">
+                <label for="edit_ManagerPhone" class="col-sm-2 control-label">负责人手机</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="edit_ManagerPhone" name="ManagerPhone"  value="${data.ManagerPhone}" placeholder="负责人手机">
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="edit_ManagerEmail" class="col-sm-2 control-label">负责人邮箱</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="edit_ManagerEmail" name="ManagerEmail"  value="${data.ManagerEmail}" placeholder="负责人邮箱">
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="edit_CheckUrl" class="col-sm-2 control-label">监控页面</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="edit_CheckUrl" name="CheckUrl"  value="${data.CheckUrl}" placeholder="监控页面">
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="SiteStatus"  {{if data.SiteStatus}}checked="checked"{{/if}}>
+                            <input type="checkbox" name="Enable"  {{if data.Enable}}checked="checked"{{/if}}>
                             有效
                         </label>
                     </div>

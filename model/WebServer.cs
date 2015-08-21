@@ -12,5 +12,7 @@ namespace model
         public int WebId { get; set; }
 
         public string ServerIp { get; set; }
+
+        public int Enable { get; set; }
     }
 }
