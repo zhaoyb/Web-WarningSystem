@@ -15,7 +15,7 @@
                 <li data-href="" class="active"><a href="/">报表</a></li>
                 <li data-href="WebSite.aspx"><a href="WebSite.aspx">站点列表</a></li>
                 <li data-href="ErrorEntity.aspx"><a href="ErrorEntity.aspx">异常信息</a></li>
-                <li data-href="https://github.com/zhaoyb/Web-WarningSystem"><a href="https://github.com/zhaoyb/Web-WarningSystem">帮助文档</a></li>
+                <li data-href="http://www.cnblogs.com/beyondbit/category/727212.html"><a href="http://www.cnblogs.com/beyondbit/category/727212.htmlm">帮助文档</a></li>
             </ul>
         </div>
     </div>

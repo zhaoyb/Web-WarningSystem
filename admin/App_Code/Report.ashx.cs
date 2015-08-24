@@ -13,37 +13,6 @@ namespace admin
     /// </summary>
     public class Report : IHttpHandler
     {
-
-
-
-        private Dictionary<int, int> count = new Dictionary<int, int>()
-        {
-            {0, 0},
-            {1, 0},
-            {2, 0},
-            {3, 0},
-            {4, 0},
-            {5, 0},
-            {6, 0},
-            {7, 0},
-            {8, 0},
-            {9, 0},
-            {10, 0},
-            {11, 0},
-            {12, 0},
-            {13, 0},
-            {14, 0},
-            {15, 0},
-            {16, 0},
-            {17, 0},
-            {18, 0},
-            {19, 0},
-            {20, 0},
-            {21, 0},
-            {22, 0},
-            {23, 0},
-        };
-
         string sql = @"select count(ErrorEntity.id) Cnt,datepart(hh,DateTime) [Hour]
                              from ErrorEntity inner join WebSite on WebSite.WebToken = ErrorEntity.WebToken
                              where WebSite.WebName='{2}' and DateTime between '{0}' and '{1}' 
@@ -54,6 +23,7 @@ namespace admin
 
         public void ProcessRequest(HttpContext context)
         {
+             var count = new int[24];
             string siteName = context.Request.QueryString["WebName"] ?? "";
             if (siteName != "")
             {
@@ -66,7 +36,7 @@ namespace admin
                     count[reportDto.Hour] = reportDto.Cnt;
                 }
             }
-            context.Response.Write( string.Join(",", count.Values.ToArray()));
+            context.Response.Write( string.Join(",", count));
         }
 
         public bool IsReusable

@@ -129,9 +129,9 @@ namespace notifyservice
               );
             }
 
-            MailHelper.SendMail("[异常报警]" + webSite.WebName + "(" + errorMessage.Ip + ")", context, "zhaoyabin@ivision.com.cn", new List<string>() { webSite.ManagerEmail },
-                "smtp.ivision.com.cn", "zhaoyabin",
-                "Password@!");
+            MailHelper.SendMail("[异常报警]" + webSite.WebName + "(" + errorMessage.Ip + ")", context, "", new List<string>() { webSite.ManagerEmail },
+                "", "",
+                "");
         }
 
         public void SendSms(WebSite webSite, ErrorEntityDto errorMessage)
