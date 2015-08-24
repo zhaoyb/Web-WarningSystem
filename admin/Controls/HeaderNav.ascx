@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">异常报警系统</a>
+            <a class="navbar-brand" href="/">异常日志报警系统</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">

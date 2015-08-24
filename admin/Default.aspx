@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>异常报警系统</title>
+    <title>异常日志报警系统</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,7 +52,7 @@
     <HJ:Nav ID="Nav" runat="server" />
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">异常报警系统</a></li>
+            <li><a href="/">异常日志报警系统</a></li>
             <li class="active">报表</li>
             &nbsp;&nbsp;&nbsp;
             <select id="siteinfo" onchange="selectchange()" class="breadcrumb" style="padding: 0; margin: 0; width: 120px">
